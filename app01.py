@@ -1,5 +1,5 @@
 import numpy as np
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -22,12 +22,16 @@ def add(a, b):
 @app.route("/omikuji")
 def omikuji():
     r = np.random.random()
-    if r < 0.5:
-        return "凶"
-    elif 0.5 <= r and r < 0.8:
-        return "吉"
+    if r < 0.4:
+        result = "大凶"
+    elif r < 0.7:
+        result = "凶"
+    elif r < 0.9:
+        result = "吉"
     else:
-        return "大吉"
+        result = "大吉"
+
+    return render_template("omikuji.html", result=result)
 
 
 if __name__ == '__main__':
